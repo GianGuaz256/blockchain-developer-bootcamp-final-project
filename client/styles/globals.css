@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.spacer{
+  aspect-ratio: 900/600;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: -1;
+}
+
+.layer-1 {
+  background-image: url('../public/low-poly-grid-haikei.svg');
+}
+
+.wave-up {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-up svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 137px;
+}
+
+.wave-up .shape-fill {
+  fill: #01f982;
+}
+
+.wave-down {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.wave-down svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 137px;
+}
+
+.wave-down .shape-fill {
+  fill: #01f982;
+}
