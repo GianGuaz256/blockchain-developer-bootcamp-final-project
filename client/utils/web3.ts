@@ -22,19 +22,29 @@ export type User = {
 
 export const isUserRegistered = async(address: string) => {
     let counter: number = await user_data.methods.getUserIdsCount().call({ from: account.address});
+    console.log(counter)
     if(counter == 0) return false;
     for(let i=0; i<counter; i++){
         let user:User = await user_data.methods._users(i).call();
-        if(user.userAddress == address){
+        console.log(user);
+        if(user.userAddress.toLowerCase() == address){
             return user;
         }
     }
     return false;
 }
 
+export const numOfToken = async() => {
+    return await user_data.methods.getTokenIdsCount().call({from: account.address});
+}
+
 export const createUser = async(address: string, country: string) => {
     await user_data.methods.createUser(address, country).send({from: account.address, gas: 500000});
     return;
+}
+
+export const createDocument = async(id_user: number, request: number, uri: string) => {
+    return user_data.methods.onDocumentCreation(0, request, uri).send({from: account.address, gas: 500000});
 }
 
 /*export const mintNewToken = async(address: string, uri: string) => {

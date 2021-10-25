@@ -14,7 +14,6 @@ const LIST_COUNTRY = [
 ]
 
 type Props = {
-    address: string;
     onClose: () => void;
     onSubmit: () => void;
 }
@@ -34,7 +33,7 @@ const Modal = (props: Props) => {
             setError('❌ No country selected ❌')
         } else {
             setLoading(true);
-            await createUser(props.address, country);
+            //await createUser(props.address, country);
             setLoading(false);
             props.onSubmit();
         }
@@ -56,7 +55,7 @@ const Modal = (props: Props) => {
                     </div>
                     <div className="my-6">
                         <label className="block mt-1 font-semibold text-lg xs:text-lg">Address</label>
-                        <input type="text" placeholder="Username" id="usernameCheck" value={props.address} readOnly className="w-full h-4 px-2 py-6 border mt-auto mb-4 shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md"></input>
+                        <input type="text" placeholder="Username" id="usernameCheck" value={''} readOnly className="w-full h-4 px-2 py-6 border mt-auto mb-4 shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md"></input>
                         <label htmlFor="select-country" className="block mt-1 font-semibold text-lg xs:text-lg">Country</label>
                         <select name="select-country" value={country} onChange={(e) => {changeSelectedCountry(e.target.value)}} id="select-coutry" className="w-full h-4 px-2 py-6 border mt-auto shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md">
                             <option value="#" disabled>Select country</option>

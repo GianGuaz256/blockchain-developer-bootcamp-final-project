@@ -3,10 +3,16 @@ const FormData = require('form-data');
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 
+type Attributes = {
+  trait_type: string;
+  value: string;
+}
+
 type JSONBodyRequest = {
   name: string;
   description: string;
   image: string;
+  attributes: Attributes[];
 }
 
 export const pinJSONToIPFS = async (JSONBody: JSONBodyRequest) => {

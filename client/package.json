@@ -10,12 +10,13 @@
   },
   "dependencies": {
     "@walletconnect/web3-provider": "^1.6.6",
+    "bootstrap": "^4.6.0",
     "moralis": "0.0.97",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-moralis": "^0.2.6",
-    "reactstrap": "^8.10.0",
+    "reactstrap": "^8.9.0",
     "web3": "^1.6.0"
   },
   "devDependencies": {
