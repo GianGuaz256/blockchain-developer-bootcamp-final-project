@@ -5,7 +5,7 @@ import ModalUsage from './ModalUsage'
 
 type Props = {
     color: string;
-    uri: string;
+    uri: string | Promise<string>;
     activated: boolean;
     idRequest: number;
 }
@@ -64,8 +64,8 @@ const Card = (props: Props) => {
             <div className="w-full flex justify-around items-center">
                 {props.activated? (
                     <>
-                        <button style={{backgroundColor: '#01f982'}} onClick={()=>{onUse()}} className="hover:bg-blue-700 text-black mb-2 md:mb-0 px-8 py-2 text-lg shadow font-medium tracking-wider border rounded-xl hover:shadow-lg">Usage</button>
-                        <button style={{backgroundColor: '#01f982'}} onClick={()=>{onUsage()}} className="hover:bg-blue-700 text-black mb-2 md:mb-0 px-8 py-2 text-lg shadow font-medium tracking-wider border rounded-xl hover:shadow-lg">Use</button>
+                        <button style={{backgroundColor: '#01f982'}} onClick={()=>{setModalUsage(true)}} className="hover:bg-blue-700 text-black mb-2 md:mb-0 px-8 py-2 text-lg shadow font-medium tracking-wider border rounded-xl hover:shadow-lg">Usage</button>
+                        <button style={{backgroundColor: '#01f982'}} onClick={()=>{setModalUse(true)}} className="hover:bg-blue-700 text-black mb-2 md:mb-0 px-8 py-2 text-lg shadow font-medium tracking-wider border rounded-xl hover:shadow-lg">Use</button>
                     </>
                 ) : (
                     <button style={{backgroundColor: '#01f982'}} onClick={()=>{setModalCreate(true)}} className="hover:bg-blue-700 text-black mb-2 md:mb-0 px-8 py-2 text-lg shadow font-medium tracking-wider border rounded-xl hover:shadow-lg">Create</button>
@@ -74,7 +74,6 @@ const Card = (props: Props) => {
         </div>
         </>
     )
-
 }
 
 export default Card;

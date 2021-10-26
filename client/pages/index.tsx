@@ -19,6 +19,8 @@ const Home: NextPage = () => {
   const getInfo = async() => {
     const response = await isUserRegistered(address);
 
+    console.log(response);
+
     if(!response){
         setSignupModal(true);
     } else {
@@ -59,7 +61,7 @@ const Home: NextPage = () => {
             </div>
         ) : null}
       <div className="w-full min-h-screen overflow-hidden flex justify-center items-center">
-        <div className="w-auto h-auto shadow-lg rounded-lg flex-col text-center p-4 m-4">
+        <div className="w-auto h-auto shadow-lg rounded-lg flex-col text-center p-2 m-4">
             <h1 className="text-2xl">Connect your wallet</h1>
             <div className="flex-col justify-between sm:flex xs:flex">
                 <a href="#" onClick={authenticateWithMetamask} className="focus:outline-none">

@@ -340,19 +340,19 @@
 				"type": "string"
 			},
 			{
-				"internalType": "bool",
+				"internalType": "uint256",
 				"name": "passport",
-				"type": "bool"
+				"type": "uint256"
 			},
 			{
-				"internalType": "bool",
+				"internalType": "uint256",
 				"name": "personalId",
-				"type": "bool"
+				"type": "uint256"
 			},
 			{
-				"internalType": "bool",
+				"internalType": "uint256",
 				"name": "taxCode",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",

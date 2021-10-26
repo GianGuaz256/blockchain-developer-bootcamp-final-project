@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <title>Token Stories</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/566/566295.png"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+      html {
+        font-family: 'Titillium Web', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body {
+        padding: 1rem;
+      }
+
+      @media (min-width: 992px) {
+        .container {
+          width: 70%;
+          margin: auto;
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .container {
+          width: 50%;
+          margin: auto;
+        }
+      }
+      .container-tokens {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+
+      .hidden-element {
+        visibility: hidden;
+      }
+
+      .wave {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        z-index: -1;
+      }
+
+      .wave svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 150px;
+      }
+
+      .wave .shape-fill {
+        fill: #FB9101;
+      }
+
+      .wave-down {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+        z-index: -1;
+      }
+
+      .wave-down svg {
+        position: relative;
+        display: block;
+        width: calc(100% + 1.3px);
+        height: 150px;
+      }
+
+      .wave-down .shape-fill {
+        fill: #FB9101;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+        </svg>
+      </div>
+      <h2 id="tokenOf" style="font-size: x-large; text-align: center;">
+        Tokens of 
+      </h2>
+      <h3 id="app-garanzia-giovani"style="text-align: center;">NFT POC</h3>
+      <p align="center" style="font-weight: bold;">* * * MAIN TOKEN * * *</p>
+      <div class="card mb-3" style="padding: 15px; border: 2px solid black; border-radius: 10px; display: flex; justify-content: center; align-items: center; text-align: center;">
+        <img id="token-image-main" style="height: auto; max-width: 500px;" src="..." class="card-img-top" alt="First Image for this NFT">
+        <div class="card-body">
+          <h5 id="token-title-main" class="card-title">Card title</h5>
+          <p id="token-description-main" class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        </div>
+      </div>
+      <p id="story-text" align="center" style="font-weight: bold;">* * * STORIES * * *</p>
+      <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img id="token-image-story-1" src="..." class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 id="token-title-story-1">First slide label</h5>
+              <p id="token-description-story-1">Some representative placeholder content for the first slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img id="token-image-story-2" src="..." class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 id="token-title-story-2">Second slide label</h5>
+              <p id="token-description-story-2">Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img id="token-image-story-3" src="..." class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 id="token-title-story-3">Third slide label</h5>
+              <p id="token-description-story-3">Some representative placeholder content for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+      <p align="center" style="margin-bottom: 30px; margin-top: 30px; font-weight: bold;">* * * * * *</p>
+      <div class="wave-down">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+        </svg>
+      </div>
+    </div>
+    <script>
+        async function init() {
+          const url = window.location.search;
+          const urlParams = new URLSearchParams(url);
+          /*const user_id = urlParams.get('user_id');
+          const token_id = urlParams.get('token_id')
+          const len = url.length;
+          console.log('TOKEN ID', token_id, 'USER ID', user_id);
+          document.getElementById('tokenOf').innerHTML = 'Info of tokens with ID ' + token_id;
+          const response = await fetch(`http://localhost:8000/api/user/list/${user_id}/${token_id}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+          });
+          const myJson = await response.json();
+          console.log(myJson);    
+          document.getElementById('token-image-main').src = myJson[0].image;
+          document.getElementById('token-title-main').innerHTML = myJson[0].title;         
+          document.getElementById('token-description-main').innerHTML = myJson[0].description; 
+          if(myJson.length >=2){
+            for(var i=1; i<myJson.length; i++){
+              document.getElementById(`token-image-story-${i}`).src = myJson[i].image;
+              document.getElementById(`token-title-story-${i}`).innerHTML = myJson[i].title;         
+              document.getElementById(`token-description-story-${i}`).innerHTML = myJson[i].description;  
+            }            
+          } else {
+            document.getElementById('carouselExampleCaptions').classList.add('hidden-element');
+            document.getElementById('story-text').innerHTML = "* * * NO STORIES YET FOR THIS TOKEN * * *"
+          }*/
+        }
+
+        init();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

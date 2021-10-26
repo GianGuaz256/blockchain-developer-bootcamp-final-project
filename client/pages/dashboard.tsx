@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useMoralis } from 'react-moralis';
 import Card from '../components/Card'
-import { isUserRegistered, User } from '../utils/web3';
+import { getUri, isUserRegistered, User } from '../utils/web3';
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 
@@ -13,11 +13,12 @@ const Dashboard: NextPage = () => {
   const router = useRouter();
   
   const [userData, setUserData] = useState<User>({
+    id: 0,
     userAddress: '',
     country: '',
-    passport: false,
-    personalId: false,
-    taxCode: false
+    passport: 0,
+    personalId: 0,
+    taxCode: 0
   });
 
   useEffect(()=>{
@@ -31,6 +32,13 @@ const Dashboard: NextPage = () => {
   const getUserData = async() => {
     const response = await isUserRegistered(user?.get('ethAddress'));
     if(response) setUserData(response);
+  }
+
+  const getUriInfo = async(id: number) =>{
+    let response = await getUri(id).then(res=>{
+      return res;
+    });
+    return response;
   }
 
   const format = (address: string) => {
@@ -52,8 +60,8 @@ const Dashboard: NextPage = () => {
             <h1 className="text-center font-bold text-xl">Passport</h1>
             <Card 
               color="#000000"
-              uri=""
-              activated={userData.passport}
+              uri={userData.passport==0 ? '' : getUriInfo(userData.passport)}
+              activated={userData.passport==0 ? false : true}
               idRequest={0}
             />
           </div>
@@ -61,8 +69,8 @@ const Dashboard: NextPage = () => {
             <h1 className="text-center font-bold text-xl">Personal ID</h1>
             <Card 
               color="#F43100"
-              uri=""
-              activated={userData.personalId}
+              uri={userData.personalId==0 ? '' : getUriInfo(userData.personalId)}
+              activated={userData.personalId==0 ? false : true}
               idRequest={1}
             />
           </div>
@@ -70,8 +78,8 @@ const Dashboard: NextPage = () => {
             <h1 className="text-center font-bold text-xl">Taxcode</h1>
             <Card 
               color="#012345"
-              uri=""
-              activated={userData.taxCode}
+              uri={userData.taxCode==0 ? '' : getUriInfo(userData.taxCode)}
+              activated={userData.taxCode==0 ? false : true}
               idRequest={2}
             />
           </div>

@@ -12,23 +12,39 @@ const user_data = new web3.eth.Contract(
     publicRuntimeConfig.CONTRACT_ADDRESS
 );
 
-export type User = {
+type UserReturned = {
     userAddress: string;
     country: string;
-    passport: boolean;
-    personalId: boolean;
-    taxCode: boolean;
+    passport: number;
+    personalId: number;
+    taxCode: number;
+}
+
+export type User = {
+    id: number;
+    userAddress: string;
+    country: string;
+    passport: number;
+    personalId: number;
+    taxCode: number;
 }
 
 export const isUserRegistered = async(address: string) => {
     let counter: number = await user_data.methods.getUserIdsCount().call({ from: account.address});
-    console.log(counter)
     if(counter == 0) return false;
     for(let i=0; i<counter; i++){
-        let user:User = await user_data.methods._users(i).call();
+        let user:UserReturned = await user_data.methods._users(i).call();
         console.log(user);
         if(user.userAddress.toLowerCase() == address){
-            return user;
+            let userToReturn: User = {
+                id: i,
+                userAddress: user.userAddress,
+                country: user.country,
+                passport: user.passport,
+                personalId: user.personalId,
+                taxCode: user.taxCode
+            }
+            return userToReturn;
         }
     }
     return false;
@@ -45,6 +61,15 @@ export const createUser = async(address: string, country: string) => {
 
 export const createDocument = async(id_user: number, request: number, uri: string) => {
     return user_data.methods.onDocumentCreation(0, request, uri).send({from: account.address, gas: 500000});
+}
+
+export const getUri = async(token_id: number) => {
+    let response: string = await user_data.methods.tokenURI(token_id).call({from: account.address});
+    return response;
+}
+
+export const getOwner = async(token_id: number) => {
+    return user_data.methods.ownerOf(token_id).call({from: account.address});
 }
 
 /*export const mintNewToken = async(address: string, uri: string) => {

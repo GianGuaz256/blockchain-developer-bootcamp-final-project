@@ -26,6 +26,7 @@ const Modal = (props: Props) => {
     const [loading, setLoading] = useState(false);
     const [country, setCountry] = useState('');
     const [error, setError] = useState('');
+    const [startDate, setStartDate] = useState(new Date());
     const [values, setValues] = useState({
         documentNum: '',
         issuer: '',
@@ -109,6 +110,7 @@ const Modal = (props: Props) => {
                         <input type="text" onChange={(e)=>{handleChange('issuer', e)}} placeholder="City of London" id="usernameCheck" value={issuer} className="w-full h-4 px-2 py-6 border mt-auto mb-2 shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md"></input>
                         <label className="block mt-1 font-semibold text-lg xs:text-lg">Release Date</label>
                         <input type="text" onChange={(e)=>{handleChange('release', e)}} placeholder="25/10/2010" id="usernameCheck" value={release} className="w-full h-4 px-2 py-6 border mt-auto mb-2 shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md"></input>
+                        {/*<DatePicker className="w-full h-4 px-2 py-6 border mt-auto mb-2 shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md" selected={startDate} onChange={(date: Date) => setStartDate(date)} />*/}
                         <label className="block mt-1 font-semibold text-lg xs:text-lg">Expiration Date</label>
                         <input type="text" onChange={(e)=>{handleChange('expiration', e)}} placeholder="25/10/2030" id="usernameCheck" value={expiration} className="w-full h-4 px-2 py-6 border mt-auto mb-2 shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md"></input>       
                     </div>
