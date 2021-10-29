@@ -13,9 +13,8 @@ const LIST_COUNTRY = [
 ]
 
 type Props = {
-
+    tokenId: number;
     onClose: () => void;
-    onSubmit: () => void;
 }
 
 const ModalUse = (props: Props) => {
@@ -28,22 +27,6 @@ const ModalUse = (props: Props) => {
         //
     }, [])
 
-    const createNewUser = async() => {
-        if(!country){
-            setError('❌ No country selected ❌')
-        } else {
-            setLoading(true);
-            //await createUser(props.address, country);
-            setLoading(false);
-            props.onSubmit();
-        }
-    }
-
-    const changeSelectedCountry = async (value: string): Promise<void> => {
-        console.log(value);
-        //setCountry(value);
-    }
-
     return(
         <>
         <div className="min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
@@ -54,7 +37,7 @@ const ModalUse = (props: Props) => {
                         <h1 className="font-bold text-xl text-center">Scan me!</h1>
                     </div>
                     <div className="flex w-full h-full justify-center items-center p-8">
-                        <QRCode value={publicRuntimeConfig.DOMAIN ? `${publicRuntimeConfig.DOMAIN}/info/1` : `http://localhost:3000/info/1`} />
+                        <QRCode value={publicRuntimeConfig.DOMAIN ? `${publicRuntimeConfig.DOMAIN}/info/${props.tokenId}` : `http://localhost:3000/info/${props.tokenId}`} />
                     </div>
                     <div className="flex justify-center items-center p-4">
                         <button onClick={props.onClose} className="mx-auto mb-2 md:mb-0 bg-white px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">

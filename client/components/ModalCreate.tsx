@@ -121,14 +121,14 @@ const Modal = (props: Props) => {
                                 <Spinner style={{color: "#3BAEA7"}}/>
                             </div>
                         ) : (
-                        <div className="flex justify-around items-center">
-                            <button onClick={props.onClose} className="mb-2 md:mb-0 bg-white px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
-                                Close
-                            </button>
-                            <button onClick={(e)=>{createNewDocument(e)}} style={{backgroundColor: '#01f982'}} className="mb-2 md:mb-0 px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg">
-                                Create
-                            </button>
-                        </div>
+                            <div className="flex justify-around items-center">
+                                <button onClick={props.onClose} className="mb-2 md:mb-0 bg-white px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
+                                    Close
+                                </button>
+                                <button onClick={(e)=>{createNewDocument(e)}} style={{backgroundColor: '#01f982'}} className="mb-2 md:mb-0 px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg">
+                                    Create
+                                </button>
+                            </div>
                         )}
                     </div>
                 </div>

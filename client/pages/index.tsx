@@ -16,29 +16,29 @@ const Home: NextPage = () => {
   const [signupModal, setSignupModal] = useState(false);
   const [address, setAddress] = useState('');
 
-  const getInfo = async() => {
-    const response = await isUserRegistered(address);
+  const getInfo = async(addressReceived:string) => {
+    const response = await isUserRegistered(addressReceived);
 
     console.log(response);
 
     if(!response){
         setSignupModal(true);
     } else {
-        router.push('/dashboard');
+        router.push(`/dashboard/${addressReceived}`);
     }
   }
 
   const authenticateWithMetamask = async() => {
     await Moralis.Web3.authenticate({chainId: 137}).then(async(user)=>{
         setAddress(user.get('ethAddress'))
-        await getInfo();
+        await getInfo(user.get('ethAddress'));
     })
   }
 
   const authenticateWithWalleCon = async() => {
       await Moralis.Web3.authenticate({ provider: "walletconnect", chainId: 137}).then(async(user)=>{
         setAddress(user.get('ethAddress'))
-        await getInfo();
+        await getInfo(user.get('ethAddress'));
       })
   }
 

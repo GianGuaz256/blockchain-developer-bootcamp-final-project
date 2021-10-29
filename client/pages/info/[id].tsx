@@ -1,7 +1,9 @@
 import type { NextPage, NextPageContext } from 'next'
 import { useEffect, useState } from 'react';
-import { getOwner, getUri } from '../../utils/web3';
+import { addDynamicTokenData, getDynamicTokenData, getOwner, getUri } from '../../utils/web3';
 import axios from 'axios';
+import { Spinner } from 'reactstrap';
+import { pinJSONToIPFS, pinJSONToIPFSData } from '../../utils/ipfs';
 
 type Attributes = {
     trait_type: string;
@@ -23,9 +25,18 @@ type Props = {
 const InfoPage = (props: Props) => {
 
   const [owner, setOwner] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState<GeolocationCoordinates | null>(null);
+  const [state, setState] = useState({
+    error: '',
+    success: ''
+  });
+
+  const {success, error} = state;
 
   useEffect(()=>{
     getOwnerOfToken();
+    getLocation();
   }, [])
 
   const getOwnerOfToken = async() => {
@@ -39,8 +50,41 @@ const InfoPage = (props: Props) => {
     return first + '...' + last;
   }
 
+  const getLocation = () => {
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(position=>{
+        console.log(position.coords)
+        setLocation(position.coords);
+      });
+    }
+  }
+
   const confirmCheck = async() => {
-      //
+    console.log("Submitting check...");
+    setLoading(true);
+    let ipfsHash;
+    const data = await getDynamicTokenData(props.id);
+    try {
+      ipfsHash = await pinJSONToIPFSData({
+        name: `Check #${data.length}`,
+        geolocation: location,
+        time: new Date(),
+      });
+      console.log('Pinned JSON Data to IPFS...')
+      await addDynamicTokenData(props.id.toString(), "https://gateway.pinata.cloud/ipfs/" + ipfsHash);
+      console.log('Done!')
+      setLoading(false);
+      setState({
+        ...state,
+        success: 'Check completed! ✔'
+      })
+    } catch(err){
+      console.log(err);
+      setState({
+        ...state,
+        error: 'An error occurred! Try again 😕'
+      })
+    }
   }
 
   return (
@@ -49,13 +93,25 @@ const InfoPage = (props: Props) => {
             <h1 className="text-3xl font-bold">Token of {format(owner)}</h1>
             {props.response.attributes.map((attribute, index)=>{
                 return (
-                    <div className="p-2">
-                        <h2 className="my-2 text-xl font-semibold">{attribute.value}:</h2>
-                        <h2 className="">{attribute.trait_type}</h2>
-                    </div>
+                  <div key={index} className="p-2">
+                      <h2 className="my-2 text-xl font-semibold">{attribute.value}:</h2>
+                      <h2 className="">{attribute.trait_type}</h2>
+                  </div>
                 )
             })}
-            <button className="my-6 px-10 py-3 text-lg rounded-lg shadow-md hover:shadow-xl" style={{backgroundColor: '#01f982'}} onClick={()=>{confirmCheck()}}>Confirm</button>
+            <div className="flex justify-center items-center p-6">
+              {loading? (
+                <div className="flex justify-center items-baseline">
+                  <Spinner style={{color: "#01f982"}}/>
+                </div>
+              ): (
+                <button className="my-6 px-10 py-3 text-lg rounded-lg shadow-md hover:shadow-xl" style={{backgroundColor: '#01f982'}} onClick={()=>{confirmCheck()}}>Confirm</button>
+              )}
+            </div>
+            <div>
+              {success ? <p className="text-green-700 text-center mb-2">{success}</p> : null} 
+              {error ? <p className="text-red-700 text-center mb-2">{error}</p> : null} 
+            </div>
         </div>      
     </div>
   )

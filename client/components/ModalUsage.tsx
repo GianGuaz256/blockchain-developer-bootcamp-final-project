@@ -1,47 +1,40 @@
 import { useEffect, useState } from "react";
-//import { Data, getDynamicTokenData } from "../utils/web3calls";
-import Image from 'next/image'
-import { createUser } from "../utils/web3";
+import { createUser, getDynamicTokenData } from "../utils/web3";
 import { Spinner } from 'reactstrap';
-
-const LIST_COUNTRY = [
-    'Italy',
-    'Germany',
-    'United Kingdom',
-    'France',
-    'Spain',
-    'USA'
-]
+import axios from 'axios';
+import { JSONDataRequest } from "../utils/ipfs";
 
 type Props = {
+    tokenId: number;
     onClose: () => void;
-    onSubmit: () => void;
 }
 
-const Modal = (props: Props) => {
+const ModalUsage = (props: Props) => {
 
     const [loading, setLoading] = useState(false);
-    const [country, setCountry] = useState('');
+    const [info, setInfo] = useState<JSONDataRequest[]>([]);
     const [error, setError] = useState('');
     
     useEffect(()=>{
-        //
+        getTokenHistory();
     }, [])
 
-    const createNewUser = async() => {
-        if(!country){
-            setError('❌ No country selected ❌')
-        } else {
-            setLoading(true);
-            //await createUser(props.address, country);
-            setLoading(false);
-            props.onSubmit();
+    const getTokenHistory = async() => {
+        setLoading(true);
+        const dataToAdd = await getDynamicTokenData(props.tokenId);
+        console.log(dataToAdd)
+        //--------------------
+        let infoToPush: JSONDataRequest[] = []
+        for(var i=0; i<dataToAdd.length; i++){
+            await axios.get(dataToAdd[i]).then(result=>{
+                console.log(result.data)
+                let response = result.data as JSONDataRequest;
+                infoToPush.push(response);
+            });
         }
-    }
-
-    const changeSelectedCountry = async (value: string): Promise<void> => {
-        console.log(value);
-        //setCountry(value);
+        console.log(infoToPush);
+        setInfo(infoToPush);
+        setLoading(false);
     }
 
     return(
@@ -51,35 +44,32 @@ const Modal = (props: Props) => {
             <div className="w-3/2 sm:w-11/12 xs:w-11/12 max-h-screen mx-auto border border-yellow-500 p-5 absolute my-auto rounded-xl shadow-lg  bg-white overflow-auto">
                 <div className="">
                     <div className="">
-                        <h1 className="font-bold text-xl">SignUp to Web3Documents</h1>
+                        <h1 className="font-bold text-xl text-center">List of checks</h1>
                     </div>
                     <div className="my-6">
-                        <label className="block mt-1 font-semibold text-lg xs:text-lg">Address</label>
-                        <input type="text" placeholder="Username" id="usernameCheck" value={''} readOnly className="w-full h-4 px-2 py-6 border mt-auto mb-4 shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md"></input>
-                        <label htmlFor="select-country" className="block mt-1 font-semibold text-lg xs:text-lg">Country</label>
-                        <select name="select-country" value={country} onChange={(e) => {changeSelectedCountry(e.target.value)}} id="select-coutry" className="w-full h-4 px-2 py-6 border mt-auto shadow-md hover:outline-none focus:outline-none focus:ring-1 focus:ring-primary-900 rounded-md">
-                            <option value="#" disabled>Select country</option>
-                            {LIST_COUNTRY.map((value, i)=>{
-                                return <option value={value} key={i} onClick={()=>{setCountry(value)}}>{value}</option>
-                            })}
-                        </select>
+                        {loading? (
+                            <div className="flex justify-center items-baseline">
+                                <Spinner style={{color: "#01f982"}}/>
+                            </div>
+                        ) : (
+                            <div>
+                                {info.map((obj, index)=>(
+                                    <>
+                                        <div key={index} className="p-4 my-2 border border-black rounded-2xl">
+                                            <h1><strong>Check name:</strong> {obj.name}</h1>
+                                            <h1><strong>Geolocation:</strong> None</h1>
+                                            <h1><strong>Check date:</strong> {obj.time}</h1>
+                                        </div>
+                                    </>
+                                ))}
+                            </div>
+                        )}
                     </div>
                     {error? <p className="text-red-700 text-center">{error}</p> : null}
                     <div className="p-3 mt-2 text-center space-x-4 md:block">
-                        {loading? (
-                            <div className="flex justify-center items-baseline">
-                                <Spinner style={{color: "#3BAEA7"}}/>
-                            </div>
-                        ) : (
-                        <>
-                            <button onClick={props.onClose} className="mb-2 md:mb-0 bg-white px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
-                                Close
-                            </button>
-                            <button onClick={createNewUser} style={{backgroundColor: '#01f982'}} className="mb-2 md:mb-0 px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg">
-                                SignUp
-                            </button>
-                        </>
-                        )}
+                        <button onClick={props.onClose} className="mb-2 md:mb-0 bg-white px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
@@ -89,4 +79,4 @@ const Modal = (props: Props) => {
 
 }
 
-export default Modal;
+export default ModalUsage;

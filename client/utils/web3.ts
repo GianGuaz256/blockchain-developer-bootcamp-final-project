@@ -72,6 +72,20 @@ export const getOwner = async(token_id: number) => {
     return user_data.methods.ownerOf(token_id).call({from: account.address});
 }
 
+export const getDynamicTokenData = async(id:number) => {
+    const response:string[] = await user_data.methods.getDynamiData(id).call({from: account.address});
+    return response;
+}
+
+export const addDynamicTokenData = async(id:string, uri: string) => {
+    try{
+        await user_data.methods.addDataToDynamicNFT(id, uri).send({from: account.address, gas: 500000});
+    } catch(err) {
+        console.log(err)
+    }
+    return;
+}
+
 /*export const mintNewToken = async(address: string, uri: string) => {
     try {
         let status = await dynamicNFT.methods.safeMint(address, uri).send({from: account.address, gas: 500000})

@@ -8,7 +8,7 @@ type Attributes = {
   value: string;
 }
 
-type JSONBodyRequest = {
+export type JSONBodyRequest = {
   name: string;
   description: string;
   image: string;
@@ -16,6 +16,23 @@ type JSONBodyRequest = {
 }
 
 export const pinJSONToIPFS = async (JSONBody: JSONBodyRequest) => {
+  const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+  const res = await axios.post(url, JSONBody, {
+    headers: {
+      pinata_api_key: publicRuntimeConfig.PINATA_API_KEY,
+      pinata_secret_api_key: publicRuntimeConfig.PINATA_SECRET_API_KEY
+    }
+  })
+  return res.data.IpfsHash;
+}
+
+export type JSONDataRequest = {
+  name: string;
+  geolocation: GeolocationCoordinates | null;
+  time: Date;
+}
+
+export const pinJSONToIPFSData = async (JSONBody: JSONDataRequest) => {
   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
   const res = await axios.post(url, JSONBody, {
     headers: {
