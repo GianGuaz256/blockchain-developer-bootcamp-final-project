@@ -16,6 +16,8 @@ type Props = {
     personalInfo: JSONBodyRequest;
 }
 
+const CONTRACT_ADDRESS="0x40856900854c147E72092A5818D46114003D19E1";
+
 const Dashboard = (props: Props) => {
 
   const { isAuthenticated, user} = useMoralis();
@@ -37,7 +39,7 @@ const Dashboard = (props: Props) => {
       <div className="w-auto border shadow-md m-4 rounded-lg p-6 font-bold text-lg">
         <h2 className="p-2">User Address: {format(props.user.userAddress)}</h2>
         <h2 className="p-2">User Country: {props.user.country}</h2>
-        <h2 className="p-2">Smart Contract Address: {format(process.env.CONTRACT_ADDRESS as string)}</h2>
+        <h2 className="p-2">Smart Contract Address: {format(CONTRACT_ADDRESS as string)}</h2>
       </div>
       <div className="p-6 flex justify-around items-center flex-wrap sm:flex-col xs:flex-col">
           <div className="flex-col justify-around items-center m-4">
