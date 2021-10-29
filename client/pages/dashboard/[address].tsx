@@ -37,7 +37,7 @@ const Dashboard = (props: Props) => {
       <div className="w-auto border shadow-md m-4 rounded-lg p-6 font-bold text-lg">
         <h2 className="p-2">User Address: {format(props.user.userAddress)}</h2>
         <h2 className="p-2">User Country: {props.user.country}</h2>
-        <h2 className="p-2">Smart Contract Address: {format(publicRuntimeConfig.CONTRACT_ADDRESS)}</h2>
+        <h2 className="p-2">Smart Contract Address: {format(process.env.CONTRACT_ADDRESS as string)}</h2>
       </div>
       <div className="p-6 flex justify-around items-center flex-wrap sm:flex-col xs:flex-col">
           <div className="flex-col justify-around items-center m-4">
