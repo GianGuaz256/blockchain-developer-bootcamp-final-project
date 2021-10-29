@@ -3,14 +3,7 @@ import QRCode from 'qrcode.react';
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 
-const LIST_COUNTRY = [
-    'Italy',
-    'Germany',
-    'United Kingdom',
-    'France',
-    'Spain',
-    'USA'
-]
+const DOMAIN = "https://blockchain-developer-bootcamp-final-project-lemon.vercel.app";
 
 type Props = {
     tokenId: number;
@@ -37,7 +30,7 @@ const ModalUse = (props: Props) => {
                         <h1 className="font-bold text-xl text-center">Scan me!</h1>
                     </div>
                     <div className="flex w-full h-full justify-center items-center p-8">
-                        <QRCode value={publicRuntimeConfig.DOMAIN ? `${publicRuntimeConfig.DOMAIN}/info/${props.tokenId}` : `http://localhost:3000/info/${props.tokenId}`} />
+                        <QRCode value={DOMAIN ? `${DOMAIN}/info/${props.tokenId}` : `http://localhost:3000/info/${props.tokenId}`} />
                     </div>
                     <div className="flex justify-center items-center p-4">
                         <button onClick={props.onClose} className="mx-auto mb-2 md:mb-0 bg-white px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
