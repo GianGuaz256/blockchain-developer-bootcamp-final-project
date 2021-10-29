@@ -4,12 +4,12 @@ import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
 
 var web3 = new Web3("https://speedy-nodes-nyc.moralis.io/edf14b3c8fe88e8b338bfc47/polygon/mainnet");
-var account = web3.eth.accounts.privateKeyToAccount(publicRuntimeConfig.PRIVATE_KEY);
+var account = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY as string);
 web3.eth.accounts.wallet.add(account);
 
 const user_data = new web3.eth.Contract(
     USER_DATA,
-    publicRuntimeConfig.CONTRACT_ADDRESS
+    process.env.CONTRACT_ADDRESS
 );
 
 type UserReturned = {

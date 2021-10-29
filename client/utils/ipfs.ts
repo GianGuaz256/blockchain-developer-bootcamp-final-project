@@ -19,8 +19,8 @@ export const pinJSONToIPFS = async (JSONBody: JSONBodyRequest) => {
   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
   const res = await axios.post(url, JSONBody, {
     headers: {
-      pinata_api_key: publicRuntimeConfig.PINATA_API_KEY,
-      pinata_secret_api_key: publicRuntimeConfig.PINATA_SECRET_API_KEY
+      pinata_api_key: process.env.PINATA_API_KEY,
+      pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY
     }
   })
   return res.data.IpfsHash;
@@ -36,8 +36,8 @@ export const pinJSONToIPFSData = async (JSONBody: JSONDataRequest) => {
   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
   const res = await axios.post(url, JSONBody, {
     headers: {
-      pinata_api_key: publicRuntimeConfig.PINATA_API_KEY,
-      pinata_secret_api_key: publicRuntimeConfig.PINATA_SECRET_API_KEY
+      pinata_api_key: process.env.PINATA_API_KEY,
+      pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY
     }
   })
   return res.data.IpfsHash;
@@ -55,8 +55,8 @@ export const pinFileToIPFS = async (file: File) => {
     maxContentLength: 'Infinity',
     headers: {
       'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-      pinata_api_key: publicRuntimeConfig.PINATA_API_KEY,
-      pinata_secret_api_key: publicRuntimeConfig.PINATA_SECRET_API_KEY
+      pinata_api_key: process.env.PINATA_API_KEY,
+      pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY
     }
   });
   return res.data.IpfsHash;
