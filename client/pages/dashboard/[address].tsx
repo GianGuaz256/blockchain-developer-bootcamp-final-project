@@ -41,9 +41,9 @@ const Dashboard = (props: Props) => {
         <h2 className="p-2">User Country: {props.user.country}</h2>
         <h2 className="p-2">Smart Contract Address: {format(CONTRACT_ADDRESS as string)}</h2>
       </div>
-      <div className="p-6 flex justify-around items-center flex-wrap sm:flex-col xs:flex-col">
+      <div className="flex justify-around items-center flex-wrap sm:flex-col xs:flex-col">
           <div className="flex-col justify-around items-center m-4">
-            <h1 className="text-center font-bold text-xl">Passport</h1>
+            <h1 className="text-center font-bold text-xl mb-4">Passport</h1>
             <Card 
               color="#f98080"
               uri={props.passInfo}
@@ -52,7 +52,7 @@ const Dashboard = (props: Props) => {
             />
           </div>
           <div className="flex-col justify-around items-center p-4">
-            <h1 className="text-center font-bold text-xl">Personal ID</h1>
+            <h1 className="text-center font-bold text-xl mb-4">Personal ID</h1>
             <Card 
               color="#93d4ff"
               uri={props.personalInfo}
@@ -61,7 +61,7 @@ const Dashboard = (props: Props) => {
             />
           </div>
           <div className="flex-col justify-around items-center p-4">
-            <h1 className="text-center font-bold text-xl">Taxcode</h1>
+            <h1 className="text-center font-bold text-xl mb-4">Taxcode</h1>
             <Card 
               color="#89de9a"
               uri={props.taxInfo}

@@ -64,8 +64,8 @@ const Card = (props: Props) => {
             </div>
         ) : null}
         <div className="flex-col justify-between items-center">
-            <a onClick={()=>{console.log('Clicked')}} className="cursor-pointer">
-                <div className="h-48 w-80 rounded-lg m-10" style={{backgroundColor: `${props.color}`}}>
+            <a onClick={()=>{console.log('Clicked')}} className="cursor-pointer mt-4">
+                <div className="h-48 w-80 rounded-lg" style={{backgroundColor: `${props.color}`}}>
                         {props.uri != emptyJSON? (
                         <div className="w-full h-full p-3">
                             {props.uri.attributes.map((attribute, index)=>{
@@ -75,7 +75,7 @@ const Card = (props: Props) => {
                     ) : null}
                 </div>
             </a>   
-            <div className="w-full flex justify-around items-center">
+            <div className="w-full flex justify-around items-center mt-4">
                 {props.activated != 0 ? (
                     <>
                         <button style={{backgroundColor: '#01f982'}} onClick={()=>{setModalUsage(true)}} className="hover:bg-blue-700 text-black mb-2 md:mb-0 px-8 py-2 text-lg shadow font-medium tracking-wider border rounded-xl hover:shadow-lg">Usage</button>
