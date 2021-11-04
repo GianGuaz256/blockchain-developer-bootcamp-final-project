@@ -67,7 +67,7 @@ const ModalUsage = (props: Props) => {
                     </div>
                     {error? <p className="text-red-700 text-center">{error}</p> : null}
                     <div className="p-3 mt-2 text-center space-x-4 md:block">
-                        <button onClick={props.onClose} className="mb-2 md:mb-0 bg-white px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
+                        <button onClick={props.onClose} className="mb-2 md:mb-0 bg-white px-10 py-3 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
                             Close
                         </button>
                     </div>

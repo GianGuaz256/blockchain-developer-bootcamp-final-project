@@ -33,7 +33,7 @@ const ModalUse = (props: Props) => {
                         <QRCode value={DOMAIN ? `${DOMAIN}/info/${props.tokenId}` : `http://localhost:3000/info/${props.tokenId}`} />
                     </div>
                     <div className="flex justify-center items-center p-4">
-                        <button onClick={props.onClose} className="mx-auto mb-2 md:mb-0 bg-white px-10 py-4 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
+                        <button onClick={props.onClose} className="mx-auto mb-2 md:mb-0 bg-white px-10 py-3 text-sm shadow-sm font-medium tracking-wider border rounded-xl hover:shadow-lg hover:bg-gray-100">
                             Close
                         </button>
                     </div>

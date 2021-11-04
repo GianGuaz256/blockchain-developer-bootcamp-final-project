@@ -34,7 +34,6 @@ export const isUserRegistered = async(address: string) => {
     if(counter == 0) return false;
     for(let i=0; i<counter; i++){
         let user:UserReturned = await user_data.methods._users(i).call();
-        console.log(user);
         if(user.userAddress.toLowerCase() == address){
             let userToReturn: User = {
                 id: i,
