@@ -1,5 +1,7 @@
 # Non-fungible Document
 
+![Demo Animation](../assets/dashboard.png?raw=true)
+
 ## Overview
 This is the final delivery for the Consensys 2021 course. The purpose of the application is to create a portal for the creation of documents in the form of Non Fungible Tokens. These tokens have been developed using the ERC721 standard by modifying some parts to make them dynamic.
 
@@ -54,7 +56,11 @@ The frontend has been developed with Next.js and is composed of 3 screens:
 
 The login page is used to understand if the user is already registered or not. If not, a modal is created that allows you to enter the country of belonging. The Dashboard allows to create a new document, to use it through a QR Code or to see which and how many checks have been done. Creating a document actually mints an NFT with the characteristics entered by the user. Using the document a QR Code is created that allows an external user to open an external page in order to see the data of the document and to complete the Check.
 
+![Demo Animation](../assets/login.png?raw=true)
+
 The check consists of two parts which are the date and place of the check. When an external user wants to make a check on the documents, this information will be saved on the IPFS so that the owner can check the actual check. On the user mode the holder will be presented with the list of performed checks. 
+
+![Demo Animation](../assets/check.png?raw=true)
 
 ## Idea behind the PoC 
 The general idea is to create a PoC able to test the use of NFT within the world of public administration. Clearly this project is meant to run on the Ethereum Blockchain and IPFS thus keeping the data transparent to anyone. The user of the Dapp should be the citizen and the check should be done by the control bodies such as the police etc..
