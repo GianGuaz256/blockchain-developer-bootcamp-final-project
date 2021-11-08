@@ -1,17 +1,77 @@
-<h1 align="center">
-	Blockchain Developer Bootcamp Final Project
-</h1>
+# Non-fungible Document
 
-<p align="center">
-  <a href="" target="blank"><img src="https://miro.medium.com/max/4000/0*yqbRInqX0ZRUlVS0" width="300" alt="Nest Logo" /></a>
-</p>
+## Overview
+This is the final delivery for the Consensys 2021 course. The purpose of the application is to create a portal for the creation of documents in the form of Non Fungible Tokens. These tokens have been developed using the ERC721 standard by modifying some parts to make them dynamic.
 
-<p align="center" style="margin: 10px">First ideas about the possible development of the final project:</p>
+## Technologies used 
+The technologies used for this application are:
+- IPFS, for saving metadata related to documents and "checks",
+- Polygon, as main chain for the deployment of the contract,
+- Solidity, for the development of the Smart contract,
+- Web3.js, for the connection of the frontend to the contract interface,
+- Moralis, for the authentication of the user to the Dapp,
+- Nextjs, for frontend development.
 
-- 🏛 Working with DAOs and the possibility of creating an application to govern more or less advanced governance processes
-- 🎟 working with NFTs not only in the art world but also in other use cases
-- 💻 developing an ERC721 and ERC20 markeplace 
+## Smart contract 
+The Dapp consists of a single contract that defines all interactions with the web app. It was developed using the ERC721 standard for NFTs with the extension for the URI and the possibility of being Ownable. Within the contract we find the logic that manages users and their enrollment in the Dapp. The user is defined with this schema:
 
-These are just ideas to bootstrap the final project. I'd like to work intensively with Solidity and the interaction between contract instances, emit events and working with structures. From the next sections I'll try to submit some more detail ideas and workflow for the project.
+```
+struct User {
+    address userAddress;
+    string country;
+    bool passport;
+    bool personalId;
+    bool taxCode;
+}
+```
 
-🍻 Cheers
+NFTs come into play in defining documents and creating them. Each user has the ability to create three documents: TaxCode, Passport, and ID. Each of these documents takes in input data that will be saved in the IPFS and will be shown in the dashboard for later use. 
+
+The ERC721 standard has been modified to make each document dynamic and therefore be able to save multiple URIs within it. An array of strings has been defined which are mapped to the tokenID and are updated by adding an element at the end. 
+
+```
+Counters.Counter private _tokenIdCounter;
+mapping(uint256=>uint256[]) private _userDocumentIds;
+mapping(uint256=>string[]) private dynamicData;
+
+function addDataToDynamicNFT(uint256 _tokenId, string memory _data) public onlyTokenOwner(_tokenId) {
+    require(_exists(_tokenId), "ERC721URIStorage: URI set of nonexistent token");
+    dynamicData[_tokenId].push(_data);
+}
+
+function getDynamiData(uint256 _tokenId) external view returns(string[] memory) {
+    require(_exists(_tokenId), "ERC721URIStorage: URI set of nonexistent token");
+    return dynamicData[_tokenId];
+}
+```
+
+## Frontend 
+The frontend has been developed with Next.js and is composed of 3 screens: 
+
+- Login Page
+- Dashboard
+- Add Check.
+
+The login page is used to understand if the user is already registered or not. If not, a modal is created that allows you to enter the country of belonging. The Dashboard allows to create a new document, to use it through a QR Code or to see which and how many checks have been done. Creating a document actually mints an NFT with the characteristics entered by the user. Using the document a QR Code is created that allows an external user to open an external page in order to see the data of the document and to complete the Check.
+
+The check consists of two parts which are the date and place of the check. When an external user wants to make a check on the documents, this information will be saved on the IPFS so that the owner can check the actual check. On the user mode the holder will be presented with the list of performed checks. 
+
+## Idea behind the PoC 
+The general idea is to create a PoC able to test the use of NFT within the world of public administration. Clearly this project is meant to run on the Ethereum Blockchain and IPFS thus keeping the data transparent to anyone. The user of the Dapp should be the citizen and the check should be done by the control bodies such as the police etc..
+
+## To run the application
+
+In order to run the application in the local environment you need to follow these steps:
+1) Install node modules
+```
+cd client/
+```
+
+```
+npm install
+```
+2) Run locally
+
+```
+npm run dev
+```
