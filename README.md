@@ -1,5 +1,7 @@
 # Non-fungible Document
 
+ETH Address: 0xe861D3c3eA8dEF3AE4191E13A05D7dC302033024
+
 <img src="../assets/dashboard.png" alt="Dashboard" title="The Dashboard" width="600"/>
 
 ## Overview
@@ -82,4 +84,18 @@ npm install
 
 ```
 npm run dev
+```
+
+## To run the smart contract and test
+
+In order to run the Smart Contract test in the local environment you need to follow these steps:
+1) Install node modules (and openzeppelin contracts repo)
+
+```
+npm install
+```
+2) Run test
+
+```
+truffle test
 ```
