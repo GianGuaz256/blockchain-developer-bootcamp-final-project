@@ -1,13 +1,19 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import { useMoralis, useMoralisQuery } from 'react-moralis';
 import Metamask from '../public/metamask.png';
 import WalletConIcon from '../public/wallet.png'
 import { useEffect, useState } from 'react';
 import Modal from '../components/Modal';
-import {Moralis} from 'moralis';
 import { createUser, isUserRegistered } from '../utils/web3';
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+
+// Create a connector
+const connector = new WalletConnect({
+    bridge: "https://bridge.walletconnect.org", // Required
+    qrcodeModal: QRCodeModal,
+  });
 
 const Home: NextPage = () => {
 
@@ -18,9 +24,9 @@ const Home: NextPage = () => {
   const [small, setSmall] = useState(false);
 
   useEffect(()=>{
-    if(screen.width < 768){
-        setSmall(true);
-    }
+    checkConnections();
+    isMetamaskValid();
+    window.addEventListener("resize", isMetamaskValid);
   }, [])
 
   const getInfo = async(addressReceived:string) => {
@@ -33,19 +39,53 @@ const Home: NextPage = () => {
     }
   }
 
-  const authenticateWithMetamask = async() => {
-    await Moralis.Web3.authenticate({chainId: 137}).then(async(user)=>{
-        setAddress(user.get('ethAddress'))
-        await getInfo(user.get('ethAddress'));
-    })
-  }
+  const isMetamaskValid = () =>{
+        var w = window.innerWidth;
+        if(w<=768){
+            setSmall(true);
+        } else {
+            setSmall(false);
+        }
+    }
 
-  const authenticateWithWalleCon = async() => {
-      await Moralis.Web3.authenticate({ provider: "walletconnect", chainId: 137}).then(async(user)=>{
-        setAddress(user.get('ethAddress'))
-        await getInfo(user.get('ethAddress'));
-      })
-  }
+    const checkConnections = () => {
+        if (connector.connected) {
+            connector.on("disconnect", (error, payload) => {
+                if (error) {
+                    throw error;
+                }
+            });
+        }
+    }
+
+    const authenticateWithMetamask = async() =>{
+        // @ts-ignore: Unreachable code error
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' }).then(async (result)=>{
+            // @ts-ignore: Unreachable code error
+            setAddress(window.ethereum._state.accounts[0]);
+            // @ts-ignore: Unreachable code error
+            await getInfo(window.ethereum._state.accounts[0])
+        })
+    }
+
+    const authenticateWithWalleCon = () =>{
+        if (!connector.connected) {
+            // create new session
+            connector.createSession()
+            //Sistemare on reject!
+        }
+        connector.on("connect", async(error, payload) => {
+            if (error) {
+                window.location.reload();
+                throw error;
+            }          
+            // Get provided accounts and chainId
+            const { accounts, chainId } = payload.params[0];
+            setAddress(accounts);
+            await getInfo(accounts)
+            router.push('/signup');
+        });
+    }
 
   return (
     <div className="w-screen h-screen overflow-hidden">
