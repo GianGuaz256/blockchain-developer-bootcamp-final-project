@@ -2,4 +2,4 @@ Mainnet
 ===========
 Name: Polygon
 ChainId: 137
-Contract Address on Mainnet:  
+Contract Address on Mainnet: 0x40856900854c147E72092A5818D46114003D19E1

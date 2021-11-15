@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@walletconnect/client": "^1.6.6",
+    "@walletconnect/qrcode-modal": "^1.6.6",
     "@walletconnect/web3-provider": "^1.6.6",
     "bootstrap": "^4.6.0",
     "moralis": "0.0.97",
