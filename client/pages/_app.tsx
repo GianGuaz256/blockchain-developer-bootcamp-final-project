@@ -6,12 +6,12 @@ import Head from 'next/head'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return(
-    <MoralisProvider appId={process.env.APP_ID as string} serverUrl={process.env.SERVER_URL as string}>
+    <>
       <Head>
           <title>Non Fungible Documents</title>
       </Head>
       <Component {...pageProps} />
-    </MoralisProvider>
+    </>
   )
 }
     

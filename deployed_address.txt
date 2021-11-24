@@ -3,3 +3,9 @@ Mainnet
 Name: Polygon
 ChainId: 137
 Contract Address on Mainnet: 0x40856900854c147E72092A5818D46114003D19E1
+
+Testnet
+===========
+Name: Ropsten
+ChainId: 3
+Contract Address on Mainnet: 0x21a45B773e255F71613cF362b1a82418d428D856

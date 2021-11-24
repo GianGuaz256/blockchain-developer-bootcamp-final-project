@@ -88,7 +88,9 @@ npm run dev
 
 ## To run the smart contract and test
 
-In order to run the Smart Contract test in the local environment you need to follow these steps:
+
+In order to run the Smart Contract test in the local environment you need to download `ganache-cli` and run it locally on a separated terminal. Then follow these steps:
+
 1) Install node modules (and openzeppelin contracts repo)
 
 ```

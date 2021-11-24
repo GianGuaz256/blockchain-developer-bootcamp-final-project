@@ -2,14 +2,13 @@ import Web3 from 'web3';
 const USER_DATA = require('./UserData.json');
 import getConfig from 'next/config';
 const { publicRuntimeConfig } = getConfig();
-
-var web3 = new Web3("https://speedy-nodes-nyc.moralis.io/edf14b3c8fe88e8b338bfc47/polygon/mainnet");
+var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/0966e1283dc44663b2866ce92f1d5ab6'))
 var account = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY as string);
 web3.eth.accounts.wallet.add(account);
 
 const user_data = new web3.eth.Contract(
     USER_DATA,
-    process.env.CONTRACT_ADDRESS
+    "0x3B34Aa79fee6297aCa9ee657e9A58Bff5A095C42"
 );
 
 type UserReturned = {
@@ -84,53 +83,3 @@ export const addDynamicTokenData = async(id:string, uri: string) => {
     }
     return;
 }
-
-/*export const mintNewToken = async(address: string, uri: string) => {
-    try {
-        let status = await dynamicNFT.methods.safeMint(address, uri).send({from: account.address, gas: 500000})
-        return status;
-    } catch(err) {
-        console.log(err)
-        return false;
-    }
-}
-
-export type Data = {
-    id: string;
-    uri: string;
-}
-
-export const getTokenOfOwnerData = async(address:string) => {
-    let counter = await dynamicNFT.methods.getTokenIdsCount().call({ from: account.address});
-    let tokens:number = await dynamicNFT.methods.balanceOf(address).call();
-    let data: Data[] = [];
-    for(let i=1; i<counter || data.length==tokens; i++){
-        let owner:string = await dynamicNFT.methods.ownerOf(i).call()
-        if(owner.toLocaleLowerCase() == address){
-            let tmp = await dynamicNFT.methods.tokenURI(i).call();
-            let objTmp = {
-                id: i.toString(),
-                uri: tmp
-            }
-            data.push(objTmp);
-        }
-    }
-    return data;
-}
-
-export const getNumberOfTokenOwned = async(address:string) => {
-    return await dynamicNFT.methods.balanceOf(address).call();
-}
-
-export const getDynamicTokenData = async(id:string) => {
-    return await dynamicNFT.methods.getDynamiData(id).call({from: account.address});
-}
-
-export const addDynamicTokenData = async(id:string, uri: string) => {
-    try{
-        await dynamicNFT.methods.addDataToDynamicNFT(id, uri).send({from: account.address, gas: 500000});
-    } catch(err) {
-        console.log(err)
-    }
-    return;
-}*/

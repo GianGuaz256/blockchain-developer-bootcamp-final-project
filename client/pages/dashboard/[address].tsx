@@ -16,16 +16,16 @@ type Props = {
     personalInfo: JSONBodyRequest;
 }
 
-const CONTRACT_ADDRESS="0x40856900854c147E72092A5818D46114003D19E1";
+//const CONTRACT_ADDRESS=process.env.CONTRACT_ADDRESS_TESTNET;
+const CONTRACT_ADDRESS="0x3B34Aa79fee6297aCa9ee657e9A58Bff5A095C42";
 
 const Dashboard = (props: Props) => {
 
-  const { isAuthenticated, user} = useMoralis();
   const router = useRouter();
 
   useEffect(()=>{
     //
-  }, [user])
+  }, [])
 
   const format = (address: string) => {
     const first = address.slice(0, 4);
