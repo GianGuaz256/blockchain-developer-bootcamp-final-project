@@ -71,6 +71,8 @@ The general idea is to create a PoC able to test the use of NFT within the world
 
 ## To run the application
 
+The application works with node `14.18.1`
+
 In order to run the application in the local environment you need to follow these steps:
 1) Install node modules
 ```
@@ -88,8 +90,9 @@ npm run dev
 
 ## To run the smart contract and test
 
+In order to run the Smart Contract test in the local environment you need to download `ganache-cli` and run it locally on a separated terminal. 
 
-In order to run the Smart Contract test in the local environment you need to download `ganache-cli` and run it locally on a separated terminal. Then follow these steps:
+Then follow these steps:
 
 1) Install node modules (and openzeppelin contracts repo)
 
